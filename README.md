@@ -1,4 +1,4 @@
-# Gemma 3-4B-IT 기반 RAG 시스템
+# Gemma 2-2B-IT 기반 RAG 시스템
 
 ## 한국어 버전
 
