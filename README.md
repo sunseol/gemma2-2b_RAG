@@ -3,7 +3,7 @@
 ## 한국어 버전
 
 ### 소개
-이 프로젝트는 Google의 Gemma 3-4B-IT 모델을 활용한 검색 증강 생성(RAG) 시스템입니다. 사용자의 질문에 대해 관련 문서를 검색하고, 검색된 문서를 기반으로 정확하고 상세한 답변을 생성합니다.
+이 프로젝트는 Google의 Gemma 2-2B-IT 모델을 활용한 검색 증강 생성(RAG) 시스템입니다. 사용자의 질문에 대해 관련 문서를 검색하고, 검색된 문서를 기반으로 정확하고 상세한 답변을 생성합니다.
 
 ### 주요 기능
 - 사용자 질의에 대한 의미론적 검색
@@ -46,7 +46,7 @@
 ## English Version
 
 ### Introduction
-This project is a Retrieval-Augmented Generation (RAG) system utilizing Google's Gemma 3-4B-IT model. It searches for relevant documents based on user queries and generates accurate and detailed answers based on the retrieved documents.
+This project is a Retrieval-Augmented Generation (RAG) system utilizing Google's Gemma 2-2B-IT model. It searches for relevant documents based on user queries and generates accurate and detailed answers based on the retrieved documents.
 
 ### Key Features
 - Semantic search for user queries
