@@ -41,7 +41,7 @@
 
 ---
 
-# Gemma 3-4B-IT based RAG System
+# Gemma 2-2B-IT based RAG System
 
 ## English Version
 
