@@ -31,6 +31,40 @@
   - 임베딩 생성
 - `data/`: 검색 대상 문서 저장소
 
+### 시스템 프로세스 흐름
+1. **초기화 단계**
+   - 웹 서버(Flask) 시작
+   - 임베딩 모델(Sentence-Transformers) 로드
+   - 벡터 데이터베이스(FAISS) 인덱스 로드
+   - Gemma 2-2B-IT 모델 로드 (GPU 가속 활성화)
+
+2. **문서 처리 단계**
+   - 사용자가 문서 파일(TXT, PDF) 업로드
+   - 문서 파싱 및 텍스트 추출
+   - 텍스트를 적절한 크기의 청크로 분할
+   - 각 청크에 대한 임베딩 벡터 생성
+   - 생성된 임베딩을 FAISS 인덱스에 추가
+
+3. **질의 처리 단계**
+   - 사용자가 웹 UI를 통해 질문 입력
+   - 질문 텍스트에 대한 임베딩 벡터 생성
+   - 임베딩 벡터를 사용하여 FAISS에서 유사한 문서 청크 검색
+   - 유사도 점수에 따라 상위 문서 선택 (기본값: 상위 3개)
+
+4. **답변 생성 단계**
+   - 검색된 문서 청크에서 핵심 정보 추출
+   - 질문과 검색된 정보를 결합하여 프롬프트 생성
+   - Gemma 2-2B-IT 모델에 프롬프트 전달
+   - 모델이 답변 생성 (온도 설정: 0.1, 최대 길이: 1024 토큰)
+   - 생성된 답변 후처리 및 정제
+
+5. **응답 전달 단계**
+   - 생성된 답변을 웹 UI에 표시
+   - 참조된 문서 출처 및 유사도 점수 함께 제공
+   - 사용자가 필요시 추가 질문 가능
+
+이 전체 프로세스는 사용자의 질문에서 답변 생성까지 평균 2-5초 내에 완료됩니다(GPU 사용 시). 시스템은 사용자가 업로드한 문서뿐만 아니라 기본 제공되는 지식 베이스를 활용하여 다양한 질문에 답변할 수 있습니다.
+
 ### 사용된 모델 및 기술
 - **생성 모델**: Google의 Gemma 2-2B-IT
   - 2B 파라미터 규모의 경량 언어 모델
@@ -108,6 +142,40 @@ This project is a Retrieval-Augmented Generation (RAG) system utilizing Google's
   - Chunk splitting
   - Embedding generation
 - `data/`: Repository for documents to be searched
+
+### System Process Flow
+1. **Initialization Step**
+   - Start the web server (Flask)
+   - Load the embedding model (Sentence-Transformers)
+   - Load the vector database (FAISS)
+   - Load the Gemma 2-2B-IT model (GPU acceleration enabled)
+
+2. **Document Processing Step**
+   - User uploads a document file (TXT, PDF)
+   - Document parsing and text extraction
+   - Text is split into appropriate-sized chunks
+   - Embedding vectors are generated for each chunk
+   - Generated embeddings are added to the FAISS index
+
+3. **Query Processing Step**
+   - User inputs a query through the web UI
+   - Embedding vector is generated for the query text
+   - Embedding vector is used to search for similar document chunks in FAISS
+   - Top documents are selected based on similarity scores (default: top 3)
+
+4. **Answer Generation Step**
+   - Extract key information from retrieved document chunks
+   - Combine query and retrieved information to generate a prompt
+   - Prompt is passed to the Gemma 2-2B-IT model
+   - Model generates an answer (temperature: 0.1, maximum length: 1024 tokens)
+   - Post-processing and refinement of generated answer
+
+5. **Response Delivery Step**
+   - Generated answer is displayed in the web UI
+   - Reference document source and similarity score are provided
+   - User can ask additional questions if needed
+
+This entire process completes within 2-5 seconds on average (with GPU usage). The system can answer various questions using not only the documents uploaded by the user but also the knowledge base provided by default.
 
 ### Models and Technologies Used
 - **Generation Model**: Google's Gemma 2-2B-IT
